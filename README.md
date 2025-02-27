@@ -2,7 +2,7 @@
 This script converts VirtualDub or VirtualDub2 .vdscript files into LosslessCut .llc files.
 It is designed to assist users who cut videos using proxy files and want to ensure frame accuracy when applying cuts to the original high-resolution files.
 This script was tested and works with:
-- Python 3.12.5    
+- Python 3.13.2  
 - VirtualDub2 (build 44282) .vdscript files
 - LosslessCut 3.63.0
 

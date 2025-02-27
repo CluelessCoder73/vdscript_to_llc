@@ -4,7 +4,7 @@ It is designed to assist users who cut videos using proxy files and want to ensu
 This script was tested and works with:
 - Python 3.13.2  
 - VirtualDub2 (build 44282) .vdscript files
-- LosslessCut 3.63.0
+- LosslessCut 3.64.0
 
 Features:
 - Convert VirtualDub(.vdscript) cuts into LosslessCut(.llc) format.

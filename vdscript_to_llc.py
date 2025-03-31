@@ -50,8 +50,8 @@ import os
 #     "1stGOP_analyzer" (which comes with "vdscript_range_adjuster") on 
 #     the "keyframe corrected" vdscript, to make sure that there are no 
 #     ultra short GOPs at the start of any of the ranges. As long as the 
-#     shortest GOP is longer than your "extra_frames_start" negative 
-#     value, you should not lose any frames.
+#     shortest GOP is 8 frames longer than your "extra_frames_start" negative 
+#     value, you will not lose any frames.
 #     "extra_frames_end" should be set to at least "8", because 
 #     inconsistencies between VirtualDub2 & LosslessCut can sometimes occur.
 

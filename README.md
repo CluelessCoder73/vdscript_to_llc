@@ -1,10 +1,10 @@
 # vdscript_to_llc
 This script converts VirtualDub or VirtualDub2 .vdscript files into LosslessCut .llc files.
-It is designed to assist users who cut videos using proxy files and want to ensure frame accuracy when applying cuts to the original high-resolution files.
+It is designed to assist users who cut videos using proxy files and want to ensure all frames are kept when applying cuts to the original high-resolution files.
 This script was tested and works with:
 - Python 3.13.2  
 - VirtualDub2 (build 44282) .vdscript files
-- LosslessCut 3.64.0
+- LosslessCut 3.65.0
 
 Features:
 - Convert VirtualDub(.vdscript) cuts into LosslessCut(.llc) format.
@@ -20,7 +20,7 @@ Note:
   The "extra_frames_end" feature will not cause any problems if the frames are added at the very end of your input video (if your last segment's end point is at the very last frame of the input video). LosslessCut will display that there are extra frames, but when that last segment is saved, its end point will be exactly the same as if there were no extra frames added to that end point at all!
 
 THIS SECTION ONLY APPLIES IF USING "vdscript_range_adjuster" ADJUSTED VDSCRIPTS
-- When processing a "keyframe corrected" vdscript (which was created by "vdscript_range_adjuster"), it is necessary to set "extra_frames_start" to "-4", or possibly more. Otherwise, LosslessCut may go to the previous I frame instead of the current (the wanted) I frame, when exporting the video! - which would not harm the video, but would add lots of unnecessary footage. But before performing that step, it is advisable to run "1stGOP_analyzer" (which comes with "vdscript_range_adjuster") on the "keyframe corrected" vdscript, to make sure that there are no ultra short GOPs at the start of any of the ranges. As long as the shortest GOP is longer than your "extra_frames_start" negative value, you will not lose any frames. "extra_frames_end" (in the case of "keyframe corrected" vdscripts) is fine set at "0", & needs no adjusting :)
+- When processing a "keyframe corrected" vdscript (which was created by "vdscript_range_adjuster"), it is necessary to set "extra_frames_start" to "-8", or possibly more. Otherwise, LosslessCut may go to the previous I frame instead of the current (the wanted) I frame, when exporting the video! - which would not harm the video, but would add lots of unnecessary footage. But before performing that step, it is advisable to run "1stGOP_analyzer" (which comes with "vdscript_range_adjuster") on the "keyframe corrected" vdscript, to make sure that there are no ultra short GOPs at the start of any of the ranges. As long as the shortest GOP is 8 frames longer than your "extra_frames_start" negative value, you will not lose any frames. "extra_frames_end" should be set to at least "8", because inconsistencies between VirtualDub2 & LosslessCut can sometimes occur.
 
 - If not working with a "keyframe corrected" vdscript, it is up to you to decide what the values are for "extra_frames_start" & "extra_frames_end". If e.g., you used a proxy video for your editing in VirtualDub, & that proxy wasn't frame-accurate, then it would probably be best to give both options a value of "50" or more, just to be on the safe side :)
 - It's important to know - positive values always ADD frames, & negative values always REMOVE frames from your segments!
@@ -36,9 +36,3 @@ Usage:
 - `extra_frames_end`: Frames to add/remove at the end of each cut (can be negative).
 - `add_segment_number`: Set this to True to add numbering (e.g., "segment 1").
 3. Run the script.
-
-Version History:
-v1.0.0 - Initial script with basic conversion functionality - has option to include extra frames at the end of each cut.
-v1.1.0 - Added feature to include extra frames at the start of each cut.
-v1.2.0 - Added segment numbering functionality for each cut.
-v1.3.0 - Allowed negative values for extra_frames_start and extra_frames_end, handling edge cases to prevent invalid segments.

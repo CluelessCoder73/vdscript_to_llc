@@ -6,9 +6,8 @@ import os
 # Script: vdscript_to_llc.py
 # Description:
 # This script converts VirtualDub or VirtualDub2 .vdscript files into 
-# LosslessCut .llc files. It is designed to assist users who cut videos 
-# using proxy files and want to ensure all frames are kept when 
-# applying cuts to the original high-resolution files.
+# LosslessCut .llc files.
+# WARNING: NOT FRAME ACCURATE! (Hence the "extra_frames_x" parameters).
 # This script was tested and works with:
 # - Python 3.13.2   
 # - VirtualDub2 (build 44282) .vdscript files
@@ -38,30 +37,8 @@ import os
 #     LosslessCut will display that there are extra frames, but when that 
 #     last segment is saved, its end point will be exactly the same as 
 #     if there were no extra frames added to that end point at all!
-
-###THIS SECTION ONLY APPLIES IF USING "vdscript_range_adjuster" ADJUSTED VDSCRIPTS###
-#   - When processing a "keyframe corrected" vdscript (which was created 
-#     by "vdscript_range_adjuster"), it is necessary to set 
-#     "extra_frames_start" to "-8", or possibly more. Otherwise, 
-#     LosslessCut may go to the previous I frame instead of the current 
-#     (the wanted) I frame, when exporting the video! - which would not 
-#     harm the video, but would add lots of unnecessary footage. 
-#     But before performing that step, it is advisable to run 
-#     "1stGOP_analyzer" (which comes with "vdscript_range_adjuster") on 
-#     the "keyframe corrected" vdscript, to make sure that there are no 
-#     ultra short GOPs at the start of any of the ranges. As long as the 
-#     shortest GOP is 8 frames longer than your "extra_frames_start" negative 
-#     value, you will not lose any frames.
-#     "extra_frames_end" should be set to at least "8", because 
-#     inconsistencies between VirtualDub2 & LosslessCut can sometimes occur.
-
-#   - If not working with a "keyframe corrected" vdscript, it is up to 
-#     you to decide what the values are for "extra_frames_start" & 
-#     "extra_frames_end". If e.g., you used a proxy video for your 
-#     editing in VirtualDub, & that proxy wasn't frame-accurate, then it 
-#     would probably be best to give both options a value of "50" or 
-#     more, just to be on the safe side :)
-#   - It's important to know - positive values always ADD frames, & negative 
+#   - It's important to know that for both "extra_frames_start" & 
+#    "extra_frames_end", positive values always ADD frames, & negative 
 #     values always REMOVE frames from your segments!
 #
 # Usage:
@@ -208,8 +185,8 @@ if __name__ == "__main__":
     llc_filepath = r"C:\New folder\output.llc"  # Path to save the .llc file
     media_filename = "test.mp4"  # Name of the video file
     fps = ?  # Frame rate of the video - Replace '?' with the correct value (e.g., 23.976, 25)
-    extra_frames_start = -8  # Number of frames to add/remove at the start of each cut (can be negative)
-    extra_frames_end = 8  # Number of frames to add/remove at the end of each cut (can be negative)
+    extra_frames_start = 0  # Number of frames to add/remove at the start of each cut (can be negative)
+    extra_frames_end = 0  # Number of frames to add/remove at the end of each cut (can be negative)
     add_segment_number = False  # Set to True to add segment numbers in the "name" field
 
     convert_vdscript_to_llc(vdscript_filepath, llc_filepath, media_filename, fps, extra_frames_start, extra_frames_end, add_segment_number)
